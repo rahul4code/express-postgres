@@ -1,0 +1,11 @@
+{
+    "perfomed_by" : 100011,
+    "consumer_no" : "101", 
+    "name": "Rahul",
+    "reason":"",
+    "remarks":"",
+    "reason_code":"",
+    "bill_year_month":"7",
+    "willPay":false, 
+    "amount":12000
+}
