@@ -4,8 +4,7 @@ const getAllConsumers = require("./api/getAllConsumer");
 const makePayment = require("./api/makePayment");
 const requestConnection = require("./api/requestConnection");
 const getPendingPayments = require("./api/getPendingPayments");
-// const triggerCron = require("../cronJobs/event-cron");
-const cron=require("node-cron")
+const triggerCron = require("../cronJobs/event-cron");
 
 const app = express();
 const PORT = "8000";
@@ -30,7 +29,6 @@ app.get("/api/getPendingPayments", async function (req, res) {
 app.post("/api/makepayment",  async function (req, res) {
   try{
     const status=await makePayment(req.body)
-    console.log(status, "Status")
     res.send(status)
   }catch(err){
     res.status(500).send(err.message)
@@ -40,16 +38,14 @@ app.post("/api/makepayment",  async function (req, res) {
 app.post("/api/requestConnection",  async function (req, res) {
   try{
     const status=await requestConnection(req.body)
-    console.log(status, "Status")
     res.send(status)
   }catch(err){
     res.status(500).send(err.message)
   }
 });
 
-// cron.schedule('* * * * *',()=>{
-//   console.log(getPendingPayments(),"Called")
-// })
+// This is a cron JOB
+triggerCron()
 
 app.listen(PORT, () => {
   console.log("App is running");

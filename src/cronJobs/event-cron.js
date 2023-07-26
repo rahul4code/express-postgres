@@ -1,12 +1,25 @@
 const cron = require('node-cron');
 const getPendingPayments = require('../server/api/getPendingPayments');
-const cronScheduleFormat=require('./../server/utils/constant.js')
+const createOrders = require('../server/api/createOrder');
+const formatMultipleOrders = require('../server/utils/formatMultipleOrders');
+const removePendingEvents=require('../server/api/removePendingEvents')
+
+const cronScheduleFormat='* * * * *'
 
 function triggerCron(){
     cron.schedule(cronScheduleFormat,async ()=>{
         try {
-            const test = await getPendingPayments()
-            console.log(test,"TEST");
+            getPendingPayments().then(data=>{
+              if(data?.length>0){
+                createOrders(formatMultipleOrders(data)).then(res=>{
+                  if(res.status===200){
+                    if(data?.length>0){
+                      data.forEach(async item=>await removePendingEvents(item))
+                    }
+                  }
+                })
+              }
+            })
           } catch (error) {
             console.error("Error executing cron job:", error);
           }
