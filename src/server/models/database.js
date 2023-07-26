@@ -1,6 +1,5 @@
-// const { Client } = require('pg');
 const knex = require('knex');
-const connectionObject = require("../constant.js");
+const connectionObject = require("../utils/constant.js");
 
 function connectDB(){
    const connect=knex(connectionObject);

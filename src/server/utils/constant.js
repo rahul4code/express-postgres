@@ -9,4 +9,7 @@ const connectionObject = {
     },
   };
 
-module.exports=connectionObject
+const cronScheduleFormat="* * * * *";
+
+module.exports=connectionObject;
+module.exports=cronScheduleFormat;
