@@ -26,7 +26,7 @@ app.get("/api/getPendingPayments", async function (req, res) {
   await res.send(data);
 });
 
-app.post("/api/makepayment",  async function (req, res) {
+app.post("/api/makePayment",  async function (req, res) {
   try{
     const status=await makePayment(req.body)
     res.send(status)
